@@ -20,7 +20,7 @@ public class CengTreeParser
                 String [] parts = line.split("\\|");
                 CengBook book = new CengBook(Integer.parseInt(parts[0]), parts[1], parts[2], parts[3]);
                 bookList.add(book);
-                //CengBookRunner.addBook(book); // is this necessary ?
+                CengBookRunner.addBook(book); // is this necessary ?
             }
         }
         catch (IOException e){
@@ -74,9 +74,9 @@ public class CengTreeParser
                 break;
             }
             else if(command.equalsIgnoreCase("print")){
-                System.out.println("Printing Tree...");
+                //System.out.println("Printing Tree...");
                 CengBookRunner.printTree();
-                System.out.println("Printing Tree Finished!");
+                //System.out.println("Printing Tree Finished!");
             }
             else{
                 parseAndProcessCommand(command);

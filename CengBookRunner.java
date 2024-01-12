@@ -39,7 +39,7 @@ public class CengBookRunner
             return;
         }
 
-        System.out.println("root:" + bookTree.root);
+        //System.out.println("root:" + bookTree.root);
 
         //System.out.println("here");
 
@@ -106,7 +106,7 @@ public class CengBookRunner
 
     public static void printTree()
     {
-        System.out.println("Printing Tree:");
+        //System.out.println("Printing Tree:");
         if(bookTree == null)
         {
             System.out.println("Tree is empty.");
@@ -114,7 +114,7 @@ public class CengBookRunner
             return;
         }
         bookTree.printTree();
-        System.out.println("Printed Tree");
+        //System.out.println("Printed Tree");
         if(guiEnabled)
         {
             window.modelNeedsUpdate(bookTree.root);
