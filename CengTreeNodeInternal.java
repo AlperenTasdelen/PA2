@@ -194,9 +194,8 @@ public class CengTreeNodeInternal extends CengTreeNode
                 }
             }
 
-            for(int i = keyCount() / 2; i < keyCount() / 2; i++){
+            for(int i = keyCount(); i > keyCount() / 2; i--){
                 removeKeyAtIndex(i);
-                i--;
             }
 
             for(int i = 0; i < children.size(); i++){
