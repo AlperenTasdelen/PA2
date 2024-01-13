@@ -176,7 +176,7 @@ public class CengTreeNodeInternal extends CengTreeNode
         else{
             System.out.println("internal pushed up");
             CengTreeNodeInternal parent = (CengTreeNodeInternal) getParent();
-            CengTreeNodeInternal newInternal = new CengTreeNodeInternal(parent);
+            CengTreeNodeInternal newInternal = new CengTreeNodeInternal(this);
             for(int i = 0; i < keyCount(); i++){
                 if(i < keyCount() / 2){
                     
