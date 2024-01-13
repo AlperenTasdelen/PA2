@@ -138,7 +138,7 @@ public class CengTreeNodeInternal extends CengTreeNode
                     removeKeyAtIndex(i);
                     i--;
                 }
-                else if(i == keyCount() / 2){
+                else if(i == (keyCount() / 2)){
                     
                 }
                 else{
