@@ -133,18 +133,18 @@ public class CengTreeNodeInternal extends CengTreeNode
             CengTreeNodeInternal right = new CengTreeNodeInternal(this);
 
             for(int i = 0; i < keyCount(); i++){
-                if(i < keyCount() / 2){
+                if(i < (keyCount() / 2)){
                     left.addKey(keyAtIndex(i));
-                    removeKeyAtIndex(i);
-                    i--;
+                    //removeKeyAtIndex(i);
+                    //i--;
                 }
                 else if(i == (keyCount() / 2)){
                     
                 }
                 else{
                     right.addKey(keyAtIndex(i));
-                    removeKeyAtIndex(i);
-                    i--;
+                    //removeKeyAtIndex(i);
+                    //i--;
                 }
             }
 
@@ -157,12 +157,19 @@ public class CengTreeNodeInternal extends CengTreeNode
                     right.addChild(children.get(i));
                     children.get(i).setParent(right);
                 }
-                removeChildAtIndex(i);
-                i--;
+                //removeChildAtIndex(i);
+                //i--;
             }
             
+            int key = keyAtIndex(keyCount() / 2);
+
+            keys.clear();
+            children.clear();
+
+            addKey(key);
+
             children.add(left);
-            //children.add(right);
+            children.add(right);
 
             updateLevels(this, 0);
         }
