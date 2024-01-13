@@ -128,7 +128,7 @@ public class CengTreeNodeInternal extends CengTreeNode
         
         //TODO: add keys and children to new internal node
         if(getParent() == null){
-            System.out.println("root pushed up");
+            //System.out.println("root pushed up");
             CengTreeNodeInternal left = new CengTreeNodeInternal(this);
             CengTreeNodeInternal right = new CengTreeNodeInternal(this);
 
@@ -181,9 +181,10 @@ public class CengTreeNodeInternal extends CengTreeNode
                     
                 }
                 else if(i == keyCount() / 2){
-                    newInternal.addKey(keyAtIndex(i));
+                    //newInternal.addKey(keyAtIndex(i));
                     //removeKeyAtIndex(i);
                     //i--;
+                    parent.addKey(keyAtIndex(i));
                 }
                 else{
                     newInternal.addKey(keyAtIndex(i));
@@ -204,10 +205,12 @@ public class CengTreeNodeInternal extends CengTreeNode
                 else{
                     newInternal.addChild(children.get(i));
                     children.get(i).setParent(newInternal);
+                    removeChildAtIndex(i);
+                    i--;
                 }
             }
 
-            parent.addKey(keyAtIndex(keyCount() / 2));
+            //parent.addKey(keyAtIndex(keyCount() / 2));
             parent.addChild(newInternal);
 
             parent.pushUp();
