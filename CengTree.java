@@ -123,26 +123,6 @@ public class CengTree
 
     public void printTree()
     {
-        // TODO: Print the whole tree to console
-        // use depth first search
-        //System.out.println("Printing Tree...");
-        /*
-         *  format: for each node if it is a interval write this and do tab for each level -> 1 tab for each level:
-         *  <index>
-         *  <key1>
-         *  <key2>
-         *  ...
-         *  </index>
-         *   
-         *  if it is a leaf write this and do tab for each level -> 1 tab for each level:
-         *  <data>
-         *  <record><bookID1>|<bookTitle>|<author>|<genre></record>
-         *  <record><bookID2>|<bookTitle>|<author>|<genre></record>
-         *  ...
-         *  </data>
-         */
-
-        //TODO: implement tab structure
         print(root);
     }
     // Any extra functions...

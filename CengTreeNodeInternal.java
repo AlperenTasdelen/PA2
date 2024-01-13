@@ -131,7 +131,7 @@ public class CengTreeNodeInternal extends CengTreeNode
             System.out.println("root pushed up");
             CengTreeNodeInternal left = new CengTreeNodeInternal(this);
             CengTreeNodeInternal right = new CengTreeNodeInternal(this);
-
+            if(true) return;
             for(int i = 0; i < keyCount(); i++){
                 if(i < keyCount() / 2){
                     left.addKey(keyAtIndex(i));
