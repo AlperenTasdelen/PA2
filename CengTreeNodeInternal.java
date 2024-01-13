@@ -82,9 +82,9 @@ public class CengTreeNodeInternal extends CengTreeNode
             int properIndex = 0;
             for(int i = 0; i < keyCount(); i++){
                 if(keyAtIndex(i) > bookID){
-                    properIndex = i;
                     break;
                 }
+                properIndex++;
             }
             CengTreeNodeLeaf leaf = (CengTreeNodeLeaf) getAllChildren().get(properIndex);
             leaf.addBookLeaf(book);
