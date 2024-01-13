@@ -205,9 +205,14 @@ public class CengTreeNodeInternal extends CengTreeNode
                 else{
                     newInternal.addChild(children.get(i));
                     children.get(i).setParent(newInternal);
-                    removeChildAtIndex(i);
-                    i--;
+                    //removeChildAtIndex(i);
+                    //i--;
                 }
+            }
+
+            for(int i = children.size() / 2; i < children.size(); i++){
+                removeChildAtIndex(i);
+                i--;
             }
 
             //parent.addKey(keyAtIndex(keyCount() / 2));
