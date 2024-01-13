@@ -104,7 +104,7 @@ public class CengTreeNodeInternal extends CengTreeNode
                 addKeyAndChildOrdered(newLeaf.bookKeyAtIndex(0), newLeaf);
                 if(keys.size() > 2 * CengTreeNode.order){
                     // overflow
-                    //pushUp();
+                    pushUp();
                 }
             }
         }
@@ -128,6 +128,7 @@ public class CengTreeNodeInternal extends CengTreeNode
         
         //TODO: add keys and children to new internal node
         if(getParent() == null){
+            System.out.println("root pushed up");
             CengTreeNodeInternal left = new CengTreeNodeInternal(this);
             CengTreeNodeInternal right = new CengTreeNodeInternal(this);
 
