@@ -161,7 +161,7 @@ public class CengTreeNodeInternal extends CengTreeNode
                 i--;
             }
             
-            //children.add(left);
+            children.add(left);
             //children.add(right);
 
             updateLevels(this, 0);
