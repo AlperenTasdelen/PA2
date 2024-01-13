@@ -31,8 +31,9 @@ public class CengTree
         //System.out.println("adding book");
         if(root.getType() == CengNodeType.Leaf){
             CengTreeNodeLeaf leaf = (CengTreeNodeLeaf) root;
-            if(leaf.bookCount() < 2 * CengTreeNode.order){
-                leaf.addBookLeaf(book);
+            leaf.addBookLeaf(book);
+            if(leaf.bookCount() <= 2 * CengTreeNode.order){
+                
             }
             else{
                 CengTreeNodeInternal internal = new CengTreeNodeInternal(null);
@@ -40,6 +41,7 @@ public class CengTree
                 internal.addKey(leaf.bookKeyAtIndex(leaf.bookCount() - 1));
                 internal.addChild(leaf);
                 leaf.setParent(internal);
+                leaf.level++;
                 CengTreeNodeLeaf newLeaf = new CengTreeNodeLeaf(internal);
                 newLeaf.level = leaf.level;
                 internal.addChild(newLeaf);
@@ -56,10 +58,12 @@ public class CengTree
                 // Leaf to internal push up
                 internal.addKey(newLeaf.bookKeyAtIndex(0));
                 internal.addChild(leaf);
-                leaf.setParent(internal);
+                //leaf.setParent(internal);
                 internal.addChild(newLeaf);
-                newLeaf.setParent(internal);
+                //newLeaf.setParent(internal);
                 root = internal;
+
+                System.out.println("root pushed up");
             }
         }
         else{
