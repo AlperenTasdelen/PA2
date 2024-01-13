@@ -113,6 +113,9 @@ public class CengTree
                 }
                 System.out.println("<index>");
                 for(int i = 0; i < internal.keyCount(); i++){
+                    for(int j = 0; j < queue.get(0).level; j++){
+                        System.out.print("\t");
+                    }
                     System.out.println(internal.keyAtIndex(i));
                 }
                 for(int i = 0; i < queue.get(0).level; i++){
