@@ -125,48 +125,78 @@ public class CengTreeNodeInternal extends CengTreeNode
         if(this.keyCount() <= 2 * CengTreeNode.order){
             return;
         }
-        CengTreeNodeInternal internal = new CengTreeNodeInternal(getParent());
-        internal.level = level;
+        
         //TODO: add keys and children to new internal node
-        for(int i = 0; i < keyCount(); i++){
-            if(i < keyCount() / 2){
-                
-            }
-            else if (i > keyCount() / 2){
-                internal.addKeyAndChildOrdered(keyAtIndex(i), getAllChildren().get(i + 1));
-                removeKeyAtIndex(i);
-                removeChildAtIndex(i + 1);
-                i--;
-            }
-            else{
-                // parent might be null
-                CengTreeNodeInternal parentInternal;
-                boolean rootParsedUp = false;
-                if (getParent() == null){
-                    //root parsed up and level increased
-                    rootParsedUp = true;
-                    parentInternal = new CengTreeNodeInternal(null);
+        if(getParent() == null){
+            CengTreeNodeInternal left = new CengTreeNodeInternal(this);
+            CengTreeNodeInternal right = new CengTreeNodeInternal(this);
+
+            for(int i = 0; i < keyCount(); i++){
+                if(i < keyCount() / 2){
+                    left.addKey(keyAtIndex(i));
+                    removeKeyAtIndex(i);
+                    i--;
+                }
+                else if(i == keyCount() / 2){
+                    
                 }
                 else{
-                    parentInternal = (CengTreeNodeInternal) getParent();
-                }
-                parentInternal.addKeyAndChildOrdered(keyAtIndex(i), internal);
-                internal.setParent(parentInternal);
-                removeKeyAtIndex(i);
-                removeChildAtIndex(i + 1);
-                i--;
-                if(parentInternal.keyCount() > 2 * CengTreeNode.order){
-                    // recursive push up
-                    parentInternal.pushUp();
-                }
-                if(rootParsedUp){
-                    updateLevels(parentInternal, 0);
+                    right.addKey(keyAtIndex(i));
+                    removeKeyAtIndex(i);
+                    i--;
                 }
             }
+
+            for(int i = 0; i < children.size(); i++){
+                if(i < children.size() / 2){
+                    left.addChild(children.get(i));
+                    children.get(i).setParent(left);
+                }
+                else{
+                    right.addChild(children.get(i));
+                    children.get(i).setParent(right);
+                }
+            }
+            children.clear();
+            children.add(left);
+            children.add(right);
+
+            updateLevels(this, 0);
         }
-        internal.addChild(getAllChildren().get(keyCount() + 1));
-        removeChildAtIndex(keyCount() + 1);
-        
+        else{
+            CengTreeNodeInternal parent = (CengTreeNodeInternal) getParent();
+            CengTreeNodeInternal newInternal = new CengTreeNodeInternal(parent);
+            for(int i = 0; i < keyCount(); i++){
+                if(i < keyCount() / 2){
+                    
+                }
+                else if(i == keyCount() / 2){
+                    newInternal.addKey(keyAtIndex(i));
+                    removeKeyAtIndex(i);
+                    i--;
+                }
+                else{
+                    newInternal.addKey(keyAtIndex(i));
+                    removeKeyAtIndex(i);
+                    i--;
+                }
+            }
+
+            for(int i = 0; i < children.size(); i++){
+                if(i < children.size() / 2){
+                    
+                }
+                else{
+                    newInternal.addChild(children.get(i));
+                    children.get(i).setParent(newInternal);
+                }
+            }
+
+            parent.addKey(keyAtIndex(keyCount() / 2));
+            parent.addChild(newInternal);
+
+            parent.pushUp();
+        }
     }
 
     private void updateLevels(CengTreeNodeInternal internal, int level){
