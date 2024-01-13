@@ -79,10 +79,52 @@ public class CengTree
         return null;
     }
 
+    private void print(CengTreeNode node){
+        if(node.getType() == CengNodeType.Internal){
+            CengTreeNodeInternal internal = (CengTreeNodeInternal) node;
+            for(int i = 0; i < node.level; i++){
+                System.out.print("\t");
+            }
+            System.out.println("<index>");
+            for(int i = 0; i < internal.keyCount(); i++){
+                for(int j = 0; j < node.level; j++){
+                    System.out.print("\t");
+                }
+                System.out.println(internal.keyAtIndex(i));
+            }
+            for(int i = 0; i < node.level; i++){
+                System.out.print("\t");
+            }
+            System.out.println("</index>");
+            for(int i = 0; i < internal.getAllChildren().size(); i++){
+                print(internal.getAllChildren().get(i));
+            }
+        }
+        else{
+            CengTreeNodeLeaf leaf = (CengTreeNodeLeaf) node;
+            for(int i = 0; i < node.level; i++){
+                System.out.print("\t");
+            }
+            System.out.println("<data>");
+            for(int i = 0; i < leaf.bookCount(); i++){
+                //System.out.println("<record>" + leaf.bookAtIndex(i).getBookID() + "|" + leaf.bookAtIndex(i).getBookTitle() + "|" + leaf.bookAtIndex(i).getAuthor() + "|" + leaf.bookAtIndex(i).getGenre() + "</record>");
+                for(int j = 0; j < node.level; j++){
+                    System.out.print("\t");
+                }
+                System.out.println("<record>" + leaf.bookAtIndex(i).fullName() + "</record>");
+            }
+            for(int i = 0; i < node.level; i++){
+                System.out.print("\t");
+            }
+            System.out.println("</data>");
+        }
+    }
+
+
     public void printTree()
     {
         // TODO: Print the whole tree to console
-        // use breadth first search
+        // use depth first search
         //System.out.println("Printing Tree...");
         /*
          *  format: for each node if it is a interval write this and do tab for each level -> 1 tab for each level:
@@ -101,6 +143,10 @@ public class CengTree
          */
 
         //TODO: implement tab structure
+
+        print(root);
+
+        /*
         ArrayList<CengTreeNode> queue = new ArrayList<CengTreeNode>();
         queue.add(root);
         while(queue.size() > 0){
@@ -146,7 +192,7 @@ public class CengTree
             }
             queue.remove(0);
         }
+        */
     }
-
     // Any extra functions...
 }
