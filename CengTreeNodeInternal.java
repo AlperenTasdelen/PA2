@@ -104,7 +104,7 @@ public class CengTreeNodeInternal extends CengTreeNode
                 addKeyAndChildOrdered(newLeaf.bookKeyAtIndex(0), newLeaf);
                 if(keys.size() > 2 * CengTreeNode.order){
                     // overflow
-                    pushUp();
+                    //pushUp();
                 }
             }
         }
