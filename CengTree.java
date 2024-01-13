@@ -111,11 +111,8 @@ public class CengTree
         ArrayList<CengTreeNode> queue = new ArrayList<CengTreeNode>();
         queue.add(root);
         while(queue.size() > 0){
-            for(int i = 0; i < queue.get(0).level; i++){
-                System.out.print("\t");
-            }
             CengTreeNode node = queue.get(0);
-            queue.remove(0);
+            
             if(node.getType() == CengNodeType.Internal){
                 CengTreeNodeInternal internal = (CengTreeNodeInternal) node;
                 for(int i = 0; i < queue.get(0).level; i++){
@@ -151,6 +148,7 @@ public class CengTree
                 }
                 System.out.println("</data>");
             }
+            queue.remove(0);
         }
     }
 
