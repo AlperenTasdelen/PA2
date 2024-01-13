@@ -86,7 +86,7 @@ public class CengTree
     {
         // TODO: Print the whole tree to console
         // use breadth first search
-        System.out.println("Printing Tree...");
+        //System.out.println("Printing Tree...");
         /*
          *  format: for each node if it is a interval write this and do tab for each level -> 1 tab for each level:
          *  <index>
@@ -107,6 +107,9 @@ public class CengTree
         ArrayList<CengTreeNode> queue = new ArrayList<CengTreeNode>();
         queue.add(root);
         while(queue.size() > 0){
+            for(int i = 0; i < queue.get(0).level; i++){
+                System.out.print("\t");
+            }
             CengTreeNode node = queue.get(0);
             queue.remove(0);
             if(node.getType() == CengNodeType.Internal){

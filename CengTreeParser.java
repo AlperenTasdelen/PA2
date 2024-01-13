@@ -5,13 +5,6 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//THIS IS A TEST COMMENT
-//THIS IS A TEST COMMENT
-//THIS IS A TEST COMMENT
-//THIS IS A TEST COMMENT
-//THIS IS A TEST COMMENT
-//THIS IS A TEST COMMENT
-
 public class CengTreeParser
 {
     public static ArrayList<CengBook> parseBooksFromFile(String filename)
