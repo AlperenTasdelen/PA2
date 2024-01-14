@@ -75,6 +75,18 @@ public class CengTreeNodeInternal extends CengTreeNode
         this.children.add(index, child);
     }
 
+    public CengTreeNode getChildAtIndex(Integer index)
+    {
+        if(index >= this.children.size() || index < 0)
+        {
+            return null;
+        }
+        else
+        {
+            return this.children.get(index);
+        }
+    }
+
     public void addBookInternal(CengBook book)
     {
         int bookID = book.getBookID();
@@ -174,31 +186,27 @@ public class CengTreeNodeInternal extends CengTreeNode
             updateLevels(this, 0);
         }
         else{
-            System.out.println("internal pushed up");
+            //Internal pushed
             CengTreeNodeInternal parent = (CengTreeNodeInternal) getParent();
-            CengTreeNodeInternal newInternal = new CengTreeNodeInternal(this);
+            CengTreeNodeInternal newInternal = new CengTreeNodeInternal(parent); // ????
             for(int i = 0; i < keyCount(); i++){
                 if(i < keyCount() / 2){
                     
                 }
                 else if(i == keyCount() / 2){
-                    //newInternal.addKey(keyAtIndex(i));
-                    //removeKeyAtIndex(i);
-                    //i--;
                     parent.addKey(keyAtIndex(i));
+                    
                 }
                 else{
                     newInternal.addKey(keyAtIndex(i));
-                    //removeKeyAtIndex(i);
-                    //i--;
                 }
             }
-            /*
+            
             int temp = keyCount() / 2;
-            for(int i = keyCount(); i > temp; i--){
+            for(int i = keyCount() - 1; i >= temp; i--){
                 removeKeyAtIndex(i);
             }
-            */
+            
 
             for(int i = 0; i < children.size(); i++){
                 if(i < children.size() / 2){
@@ -212,13 +220,14 @@ public class CengTreeNodeInternal extends CengTreeNode
                 }
             }
 
-            for(int i = children.size() / 2; i < children.size(); i++){
+            int temp2 = children.size() / 2;
+            for(int i = children.size() -1 ; i >= temp2; i--){
                 removeChildAtIndex(i);
-                i--;
             }
 
-            //parent.addKey(keyAtIndex(keyCount() / 2));
             parent.addChild(newInternal);
+
+            newInternal.level = level;
 
             parent.pushUp();
         }
@@ -234,6 +243,21 @@ public class CengTreeNodeInternal extends CengTreeNode
                 internal.getAllChildren().get(i).level = level + 1;
             }
         }
+    }
+
+    private void printNode(){
+        System.out.println("Internal Node");
+        System.out.println("Level: " + level);
+        System.out.println("Keys: ");
+        for(int i = 0; i < keyCount(); i++){
+            System.out.print(keyAtIndex(i) + " ");
+        }
+        System.out.println();
+        System.out.println("Children: ");
+        for(int i = 0; i < children.size(); i++){
+            System.out.print(children.get(i).level + " ");
+        }
+        System.out.println();
     }
 
     // Extra Functions

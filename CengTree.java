@@ -75,8 +75,120 @@ public class CengTree
     {
         // TODO: Search within whole Tree, return visited nodes.
         // Return null if not found.
-
-        return null;
+        if(root == null){
+            return null;
+        }
+        
+        CengTreeNode node = root;
+        ArrayList<CengTreeNode> visited = new ArrayList<CengTreeNode>();
+        CengTreeNodeInternal internal = (CengTreeNodeInternal) node;
+        
+        if(node.getType() == CengNodeType.Internal){
+            boolean leafFound = false;
+            while(leafFound == false){
+                visited.add(internal);
+                int i = 0;
+                for(; i < internal.keyCount(); i++){
+                    if(bookID < internal.keyAtIndex(i)){
+                        break;
+                    }
+                }
+                if(internal.getChildAtIndex(0).getType() == CengNodeType.Leaf){
+                    leafFound = true;
+                    //internal = (CengTreeNodeInternal) internal.getChildAtIndex(i);
+                }
+                else{
+                    internal = (CengTreeNodeInternal) internal.getChildAtIndex(i);
+                }
+            }
+        }
+        
+        boolean found = false;
+        CengTreeNodeLeaf leaf = null;
+        int m = 0;
+        for(m = 0; m < internal.keyCount(); m++){
+            if(internal.keyAtIndex(m) > bookID){
+                break;
+            }
+            else if(m == internal.keyCount() - 1){
+                m++;
+                break;
+            }
+        }
+        leaf = (CengTreeNodeLeaf) internal.getChildAtIndex(m);
+        for(int i = 0; i < leaf.bookCount(); i++){
+            if(leaf.bookAtIndex(i).getBookID() == bookID){
+                visited.add(leaf);
+                found = true;
+                break;
+                //return visited;
+            }
+        }
+        /*
+        for(int i = 0; i < visited.size(); i++){
+            if(visited.get(i).getType() == CengNodeType.Internal){
+                System.out.println("internal");
+                CengTreeNodeInternal internal2 = (CengTreeNodeInternal) visited.get(i);
+                for(int j = 0; j < internal2.keyCount(); j++){
+                    System.out.println(internal2.keyAtIndex(j));
+                }
+            }
+            else{
+                System.out.println("leaf");
+                CengTreeNodeLeaf leaf2 = (CengTreeNodeLeaf) visited.get(i);
+                for(int j = 0; j < leaf2.bookCount(); j++){
+                    System.out.println(leaf2.bookAtIndex(j).getBookID());
+                }
+            }
+        }
+        */
+        if(found == true){
+            for(int i = 0; i < visited.size() - 1; i++){
+                CengTreeNodeInternal internal2 = (CengTreeNodeInternal) visited.get(i);
+                for(int j = 0; j < visited.get(i).level; j++){
+                    System.out.print("\t");
+                }
+                System.out.println("<index>");
+                for(int j = 0; j < internal2.keyCount(); j++){
+                    for(int k = 0; k < visited.get(i).level; k++){
+                        System.out.print("\t");
+                    }
+                    System.out.println(internal2.keyAtIndex(j));
+                }
+                for(int j = 0; j < visited.get(i).level; j++){
+                    System.out.print("\t");
+                }
+                System.out.println("</index>");
+            }
+            CengTreeNodeLeaf leaf2 = (CengTreeNodeLeaf) visited.get(visited.size() - 1);
+            for(int i = 0; i < visited.get(visited.size() - 1).level; i++){
+                System.out.print("\t");
+            }
+            System.out.println("<data>");
+            for(int i = 0; i < leaf2.bookCount(); i++){
+                if(leaf2.bookAtIndex(i).getBookID() == bookID){
+                    for(int j = 0; j < visited.get(visited.size() - 1).level; j++){
+                        System.out.print("\t");
+                    }
+                    System.out.println("<record>" + leaf2.bookAtIndex(i).fullName() + "</record>");
+                    break;
+                }
+            }
+            for(int i = 0; i < visited.get(visited.size() - 1).level; i++){
+                System.out.print("\t");
+            }
+            System.out.println("</data>");
+            for(int i = 0; i < visited.get(visited.size() - 1).level; i++){
+                System.out.print("\t");
+            }
+            return visited;
+        }
+        else{
+            System.out.println("Could not find " + bookID + ".");
+            return visited;
+        }
+        
+        //return null;
     }
 
     private void print(CengTreeNode node){

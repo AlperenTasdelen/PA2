@@ -56,5 +56,13 @@ public class CengTreeNodeLeaf extends CengTreeNode
         return books.get(index);
     }
 
+    public void printBooks()
+    {
+        for(CengBook book : books)
+        {
+            System.out.println(book.getBookID());
+        }
+    }
+
     // Extra Functions
 }
