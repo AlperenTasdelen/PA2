@@ -128,15 +128,9 @@ public class CengTreeNodeInternal extends CengTreeNode
             if(leaf.bookCount() > 2 * CengTreeNode.order){
                 CengTreeNodeLeaf newLeaf = new CengTreeNodeLeaf(this);
                 newLeaf.level = leaf.level;
-                for(int i = 0; i < leaf.bookCount(); i++){
-                    if(i < leaf.bookCount() / 2){
-                        
-                    }
-                    else{
-                        newLeaf.addBookLeaf(leaf.bookAtIndex(i));
-                        leaf.removeBookAtIndex(i);
-                        i--;
-                    }
+                for(int i = leaf.bookCount() / 2; i < leaf.bookCount();){
+                    newLeaf.addBookLeaf(leaf.bookAtIndex(i));
+                    leaf.removeBookAtIndex(i);
                 }
                 addKeyAndChildOrdered(newLeaf.bookKeyAtIndex(0), newLeaf);
                 if(keys.size() > 2 * CengTreeNode.order){
@@ -165,23 +159,15 @@ public class CengTreeNodeInternal extends CengTreeNode
         
         //TODO: add keys and children to new internal node
         if(getParent() == null){
-            //System.out.println("root pushed up");
             CengTreeNodeInternal left = new CengTreeNodeInternal(this);
             CengTreeNodeInternal right = new CengTreeNodeInternal(this);
 
             for(int i = 0; i < keyCount(); i++){
                 if(i < (keyCount() / 2)){
                     left.addKey(keyAtIndex(i));
-                    //removeKeyAtIndex(i);
-                    //i--;
                 }
-                else if(i == (keyCount() / 2)){
-                    
-                }
-                else{
+                if(i > (keyCount() / 2)){
                     right.addKey(keyAtIndex(i));
-                    //removeKeyAtIndex(i);
-                    //i--;
                 }
             }
 
@@ -194,8 +180,6 @@ public class CengTreeNodeInternal extends CengTreeNode
                     right.addChild(children.get(i));
                     children.get(i).setParent(right);
                 }
-                //removeChildAtIndex(i);
-                //i--;
             }
             
             int key = keyAtIndex(keyCount() / 2);
@@ -213,14 +197,13 @@ public class CengTreeNodeInternal extends CengTreeNode
         else{
             //Internal pushed
             CengTreeNodeInternal parent = (CengTreeNodeInternal) getParent();
-            CengTreeNodeInternal newInternal = new CengTreeNodeInternal(parent); // ????
+            CengTreeNodeInternal newInternal = new CengTreeNodeInternal(parent);
             for(int i = 0; i < keyCount(); i++){
                 if(i < keyCount() / 2){
                     
                 }
                 else if(i == keyCount() / 2){
                     parent.addKey(keyAtIndex(i));
-                    
                 }
                 else{
                     newInternal.addKey(keyAtIndex(i));
@@ -233,16 +216,9 @@ public class CengTreeNodeInternal extends CengTreeNode
             }
             
 
-            for(int i = 0; i < children.size(); i++){
-                if(i < children.size() / 2){
-                    
-                }
-                else{
-                    newInternal.addChild(children.get(i));
-                    children.get(i).setParent(newInternal);
-                    //removeChildAtIndex(i);
-                    //i--;
-                }
+            for(int i = children.size() / 2; i < children.size(); i++){
+                newInternal.addChild(children.get(i));
+                children.get(i).setParent(newInternal);
             }
 
             int temp2 = children.size() / 2;
@@ -269,21 +245,5 @@ public class CengTreeNodeInternal extends CengTreeNode
             }
         }
     }
-
-    private void printNode(){
-        System.out.println("Internal Node");
-        System.out.println("Level: " + level);
-        System.out.println("Keys: ");
-        for(int i = 0; i < keyCount(); i++){
-            System.out.print(keyAtIndex(i) + " ");
-        }
-        System.out.println();
-        System.out.println("Children: ");
-        for(int i = 0; i < children.size(); i++){
-            System.out.print(children.get(i).level + " ");
-        }
-        System.out.println();
-    }
-
     // Extra Functions
 }
