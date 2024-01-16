@@ -39,7 +39,14 @@ public class CengTreeNodeInternal extends CengTreeNode
 
     public void addKey(Integer key)
     {
-        this.keys.add(key);
+        int index = 0;
+        for(int i = 0; i < keyCount(); i++){
+            if(keyAtIndex(i) > key){
+                break;
+            }
+            index++;
+        }
+        this.keys.add(index, key);
     }
 
     public void addKeyAndChildOrdered(Integer key, CengTreeNode child)
@@ -57,7 +64,25 @@ public class CengTreeNodeInternal extends CengTreeNode
 
     public void addChild(CengTreeNode child)
     {
-        this.children.add(child);
+        int properIndex = 0;
+        if(keyCount() == 0){
+            this.children.add(child);
+            return;
+        }
+        if(child.type == CengNodeType.Internal){
+            CengTreeNodeInternal internal = (CengTreeNodeInternal) child;
+            for(int i = keyCount() - 1; i >= 0; i--){
+                if(keyAtIndex(i) < internal.keyAtIndex(0)){
+                    properIndex = i + 1;
+                    break;
+                }
+            }
+        }
+        else{
+            this.children.add(child);
+            return;
+        }
+        this.children.add(properIndex, child);
     }
 
     public void removeKeyAtIndex(Integer index)

@@ -20,7 +20,7 @@ public class CengTreeParser
                 String [] parts = line.split("\\|");
                 CengBook book = new CengBook(Integer.parseInt(parts[0]), parts[1], parts[2], parts[3]);
                 bookList.add(book);
-                //CengBookRunner.addBook(book); // is this necessary ?
+                CengBookRunner.addBook(book);
             }
         }
         catch (IOException e){
@@ -34,12 +34,10 @@ public class CengTreeParser
         String [] parts = command.split("\\|");
 
         if(parts.length == 5 && parts[0].equalsIgnoreCase("add")){
-            //System.out.println("Adding...");
             CengBook book = new CengBook(Integer.parseInt(parts[1]), parts[2], parts[3], parts[4]);
             CengBookRunner.addBook(book);
         }
         else if(parts.length == 2 && parts[0].equalsIgnoreCase("search")){
-            //System.out.println("Searching...");
             CengBookRunner.searchBook(Integer.parseInt(parts[1]));
         }
         else{
@@ -64,19 +62,14 @@ public class CengTreeParser
         // Commands (quit, add, search, print) are case-insensitive.
 
         Scanner scanner = new Scanner(System.in);
-        
-        //ArrayList<CengBook> bookList = parseBooksFromFile(CengBookRunner.fileName);
 
         while (true){
             String command = scanner.nextLine();
             if(command.equalsIgnoreCase("quit")){
-                //System.out.println("Exiting...");
                 break;
             }
             else if(command.equalsIgnoreCase("print")){
-                //System.out.println("Printing Tree...");
                 CengBookRunner.printTree();
-                //System.out.println("Printing Tree Finished!");
             }
             else{
                 parseAndProcessCommand(command);

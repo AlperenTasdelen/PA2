@@ -39,10 +39,6 @@ public class CengBookRunner
             return;
         }
 
-        //System.out.println("root:" + bookTree.root);
-
-        //System.out.println("here");
-
         Integer orderN = 2 * order + 1; // N-based order, for GUI purposes only.
 
         CengGUI.orderN = orderN;
@@ -73,9 +69,8 @@ public class CengBookRunner
 
     public static void addBook(CengBook book)
     {
-        //System.out.println("Adding book");
         bookTree.addBook(book);
-        //System.out.println("Book added");
+
         if(guiEnabled)
         {
             if(window == null)
@@ -106,15 +101,8 @@ public class CengBookRunner
 
     public static void printTree()
     {
-        //System.out.println("Printing Tree:");
-        if(bookTree == null)
-        {
-            System.out.println("Tree is empty.");
-
-            return;
-        }
         bookTree.printTree();
-        //System.out.println("Printed Tree");
+        
         if(guiEnabled)
         {
             window.modelNeedsUpdate(bookTree.root);
